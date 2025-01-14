@@ -10,11 +10,5 @@ public class HelloWorldTest {
         System.out.println("Hello from Dmitrii");
     }
 
-//    @Test
-//    public void firstApiTest() {
-//        Response response = RestAssured
-//                .get("https://playground.learnqa.ru/api/hello")
-//                .andReturn();
-//        response.prettyPrint();
-//    }
+
 }
