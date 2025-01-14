@@ -1,0 +1,27 @@
+# Created at 2025-01-14T20:05:44.721
+Exception in thread "main" java.lang.ClassNotFoundException: org.aspectj.weaver.loadtime.Agent
+
+# Created at 2025-01-14T20:05:44.722
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+
+# Created at 2025-01-14T20:05:44.722
+	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+
+# Created at 2025-01-14T20:05:44.723
+	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:528)
+
+# Created at 2025-01-14T20:05:44.723
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:504)
+
+# Created at 2025-01-14T20:05:44.723
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:572)
+
+# Created at 2025-01-14T20:05:44.724
+*** java.lang.instrument ASSERTION FAILED ***: "!errorOutstanding" with message Outstanding error when calling method in invokeJavaAgentMainMethod at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 627
+
+# Created at 2025-01-14T20:05:44.725
+*** java.lang.instrument ASSERTION FAILED ***: "success" with message invokeJavaAgentMainMethod failed at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 466
+
+# Created at 2025-01-14T20:05:44.725
+*** java.lang.instrument ASSERTION FAILED ***: "result" with message agent load/premain call failed at s\open\src\java.instrument\share\native\libinstrument\JPLISAgent.c line: 429
+
