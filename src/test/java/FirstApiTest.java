@@ -1,7 +1,9 @@
 import io.restassured.RestAssured;
+import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -101,5 +103,96 @@ public class FirstApiTest {
 
         int statusCode = response.getStatusCode();
         System.out.println(statusCode);
+
+        response.prettyPrint();
+
+        String locationHeader = response.getHeader("location");  // Смотрим Хедер Локейшен (куда был запланирован редирект)
+        System.out.println("\nHeader location = " + locationHeader);
     }  // не следовать редиректу, если вдруг
+
+    @Test
+    public void eightApiTest() {
+
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Myheader1", "value1");
+        headers.put("Myheader2", "value2");
+
+        Response response = RestAssured
+                .given()
+                .headers(headers)
+                .when()
+                .get("https://playground.learnqa.ru/api/show_all_headers")
+                .andReturn();
+
+        response.prettyPrint();  // Эндпоинт в боди присылает полученные Хедеры (то есть хедеры запроса)
+
+        Headers responseHeaders = response.getHeaders();
+        System.out.println(responseHeaders);  //  Хедеры ответа
+
+    }  // Отправляем заголовки (хедеры)
+
+    @Test
+    public void ninthApiTest() {
+
+        Map<String, String> data = new HashMap<>();
+        data.put("login", "secret_login");
+        data.put("password", "secret_pass");
+
+        Response response = RestAssured
+                .given()
+                .body(data)
+                .when()
+                .post("https://playground.learnqa.ru/api/get_auth_cookie")
+                .andReturn();
+
+        System.out.println("\nPretty text:");
+        response.prettyPrint();
+
+        System.out.println("\nHeaders: ");
+        Headers responseHeaders = response.getHeaders();
+        System.out.println(responseHeaders);
+
+        System.out.println("\nCookies: ");
+        Map<String, String> responseCookies = response.getCookies();
+        System.out.println(responseCookies);
+
+        String simpleResponseCookie = response.getCookie("auth_cookie");
+        System.out.println("\nCoookies value: " + simpleResponseCookie);
+
+    }  // Получаем куки
+
+    @Test
+    public void tenthApiTest() {
+
+        Map<String, String> data = new HashMap<>();
+        data.put("login", "secret_login");
+        data.put("password", "secret_pass");
+
+        Response responseForUse = RestAssured
+                .given()
+                .body(data)
+                .when()
+                .post("https://playground.learnqa.ru/api/get_auth_cookie")
+                .andReturn();
+
+        String responseCookie = responseForUse.getCookie("auth_cookie");  // кладем куку в переменную
+
+        Map<String, String> cookies = new HashMap<>();  // создаем хешмэп из двух стринг
+        if(responseCookie != null) {
+            cookies.put("auth_cookie", responseCookie);  // кладем в хешмэп с ключем auth_cookie значение куки
+        }
+
+        Response responseForCheck = RestAssured
+                .given()
+                .body(data)
+                .cookies(cookies)  // Используем куки
+                .when()
+                .post("https://playground.learnqa.ru/api/check_auth_cookie")
+                .andReturn();
+
+        responseForCheck.print();
+
+    }  // Используем куки
+
+
 }
