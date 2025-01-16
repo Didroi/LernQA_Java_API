@@ -2,7 +2,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-public class Exp6RedirectHomeWorkTest {
+public class Ex7LongRedirectHomeWorkTest {
 
     @Test
     public void seventhApiTest() {

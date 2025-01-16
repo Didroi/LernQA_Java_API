@@ -2,7 +2,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-public class Exp5JsonParsingHomeWorkTest {
+public class Ex5JsonParsingHomeWorkTest {
 
     @Test
     public void exp5JsonParsingHomeWork() {
