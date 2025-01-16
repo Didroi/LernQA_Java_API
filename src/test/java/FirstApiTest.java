@@ -47,7 +47,7 @@ public class FirstApiTest {
 
         String answer = response.get("answer");  // ответ  возвращается в json с одной парой ключ-значение, с ключем answer
         System.out.println(answer);
-    }  // Гет с параметрами
+    }  // Гет с параметрами + парсинг ответа
 
     @Test
     public void forthApiTest() {
