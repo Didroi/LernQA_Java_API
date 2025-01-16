@@ -7,15 +7,25 @@ public class Ex7LongRedirectHomeWorkTest {
     @Test
     public void seventhApiTest() {
 
-        Response response = RestAssured
-                .given()
-                .redirects()
-                .follow(false)
-                .when()
-                .get("https://playground.learnqa.ru/api/long_redirect")
-                .andReturn();
+        int responseStatus = 0;
+        String url = "https://playground.learnqa.ru/api/long_redirect";
 
-        String locationHeader = response.getHeader("location");
-        System.out.println("\nАдрес Куда нас редиректит:" + locationHeader);
+        while (responseStatus != 200) {
+
+            Response response = RestAssured
+                    .given()
+                    .redirects()
+                    .follow(false)
+                    .when()
+                    .get(url)
+                    .andReturn();
+
+    //        response.prettyPeek();
+            responseStatus = response.getStatusCode();
+
+            String locationHeader = response.getHeader("location");
+            System.out.println("\nАдрес Куда нас редиректит:" + locationHeader);
+            url = locationHeader;
+        }
     }
 }
