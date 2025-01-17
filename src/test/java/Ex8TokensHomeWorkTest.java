@@ -1,6 +1,5 @@
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -18,7 +17,7 @@ public class Ex8TokensHomeWorkTest {
                 .get(url)
                 .jsonPath();
 
-        response.prettyPrint();
+//        response.prettyPrint();
         String token = response.get("token");
         int waitingTime = response.get("seconds");
 
@@ -31,7 +30,7 @@ public class Ex8TokensHomeWorkTest {
                 .get(url)
                 .jsonPath();
 
-        response.prettyPrint();
+//        response.prettyPrint();
         String status = response.get("status");
         assert status.equals("Job is NOT ready"): "Статус некорректен";
 
@@ -39,20 +38,16 @@ public class Ex8TokensHomeWorkTest {
             Thread.sleep(waitingTime * 1000L);
         }
 
-        /*
-        далее не проверял.
-        условие:
-        делал бы один запрос c token ПОСЛЕ того, как задача готова, убеждался в правильности поля status и наличии поля result
-         */
-
         response = RestAssured
                 .given()
                 .queryParams(params)
                 .get(url)
                 .jsonPath();
 
-        response.prettyPrint();
-        String status = response.get("status");
-        assert status.equals("Job is NOT ready"): "Статус некорректен";
+//        response.prettyPrint();
+        status = response.get("status");
+        assert status.equals("Job is ready"): "Статус некорректен";
+        String result = response.get("result");
+        assert result.equals("42"): "Результат некорректен";
     }
 }
