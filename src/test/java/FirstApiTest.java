@@ -3,10 +3,15 @@ import io.restassured.http.Headers;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FirstApiTest {
 
@@ -194,5 +199,35 @@ public class FirstApiTest {
 
     }  // Используем куки
 
+    @Test
+    public void eleventhApiTest() {
+        Response response = RestAssured
+                .get("https://playground.learnqa.ru/api/map")
+                .andReturn();
+        assertEquals(200, response.statusCode(), "Unexpected status code");
 
+    } // Assert Junit
+
+    @ParameterizedTest
+    @ValueSource(strings = {"", "John", "Dmitrii"})
+    public void twelfthApiTest(String name) {
+
+        Map<String, String> queryParams = new HashMap<>();
+
+        if(name.length() > 0) {
+            queryParams.put("name", name);
+        }
+
+        JsonPath response = RestAssured
+                .given()
+                .log().all()
+                .queryParams(queryParams)  // Если queryParams пустой, ресташуред ничего не передает
+                .get("https://playground.learnqa.ru/api/hello")
+                .jsonPath();
+
+        String answer = response.getString("answer");
+        String expectedName = (name.length() > 0) ? name : "someone";
+        assertEquals("Hello, " + expectedName, answer, "Unexpected answer");
+
+    } // Параметризованный тест
 }
