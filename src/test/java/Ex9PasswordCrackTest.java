@@ -1,5 +1,4 @@
 import io.restassured.RestAssured;
-import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 public class Ex9PasswordCrackTest {
 
-    //    @Test
     public HashSet<String> returnPassword() throws NullPointerException {
 
         Response response = io.restassured.RestAssured
@@ -47,13 +45,10 @@ public class Ex9PasswordCrackTest {
             }
         }
 
-//        for (String value : uniqueValues) {
-//            System.out.println(value);
-
         return uniqueValues;
     }
 
-    public String getCookie(String password) {
+    public String get_secret_password_homework(String password) { // Предложенное наименование, конечно, не отвечает стандаотам Джавы. Явно из курса по Питону. На питоне, конечно, задача решалась бы намного проще(((
 
         Map<String, String> data = new HashMap<>();
         data.put("login", "super_admin");
@@ -66,25 +61,41 @@ public class Ex9PasswordCrackTest {
                 .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
                 .andReturn();
 
-        System.out.println("\nPretty text:");
-        response.prettyPrint();
+        return response.getCookie("auth_cookie");
+    }
 
-        System.out.println("\nHeaders: ");
-        Headers responseHeaders = response.getHeaders();
-        System.out.println(responseHeaders);
+    public String check_auth_cookie(String cookie) {  // Тоже нейминг неудачный
 
-        System.out.println("\nCookies: ");
-        Map<String, String> responseCookies = response.getCookies();
-        System.out.println(responseCookies);
+        Map<String, String> cookies = new HashMap<>();
+        cookies.put("auth_cookie", cookie);
 
-        String simpleResponseCookie = response.getCookie("auth_cookie");
-        System.out.println("\nCoookies value: " + simpleResponseCookie);
+        Response responseForCheck = RestAssured
+                .given()
+                .cookies(cookies)  // Используем куки
+                .when()
+                .post("https://playground.learnqa.ru/api/check_auth_cookie")
+                .andReturn();
 
-        return simpleResponseCookie;
+        return responseForCheck.getBody().asString();
     }
 
     @Test
     public void crackingPassword() {
-        System.out.println(getCookie("sdgsdfsd"));
+        HashSet<String> passwords = returnPassword();
+        String answer = "You are NOT authorized";
+        String rightPassword = "null";
+
+        for (String password: passwords) {
+            answer = check_auth_cookie(get_secret_password_homework(password));
+            if(!answer.equals("You are NOT authorized")) {
+                rightPassword = password;
+                break;
+            }
+        }
+
+        if(!answer.equals("You are NOT authorized")) {
+            System.out.println(answer);
+            System.out.println("Правильный пароль - " + rightPassword);
+        } else {System.out.println(answer);}
     }
 }
