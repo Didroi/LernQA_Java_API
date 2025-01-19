@@ -55,6 +55,6 @@ public class UserAuthTest {
     @ParameterizedTest
     @ValueSource(strings = {"cookie", "headers"})
     public void testNegativeAuthUser(String condition) {
-        Map<String, String>
+        Map<String, String> authData = new HashMap<>();
     }
 }
