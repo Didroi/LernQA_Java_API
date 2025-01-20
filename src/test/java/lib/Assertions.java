@@ -3,8 +3,11 @@ package lib;
 import io.restassured.response.Response;
 
 import static org.hamcrest.Matchers.hasKey;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Assertions {
     public static void assertJsonByName(Response Response, String name, int expectedValue) {
@@ -16,11 +19,12 @@ public class Assertions {
 
     public static void assertNameByLength(String name) {
         int length = 15;
-        assert (name.length() > length) : "Длинна меньше 15 символов";
+//        assert (name.length() > length) : "Длинна меньше 15 символов";
+        assertTrue(name.length() > length, "Длинна меньше 15 символов");
     }
 
     public static void assertNameByLength(String name, int length) {
-        assert (name.length() > length) : "Длинна меньше 15 символов";
+        assertThat("Длинна меньше 15 символов", name.length(), greaterThan(length));
     }
 
 }
