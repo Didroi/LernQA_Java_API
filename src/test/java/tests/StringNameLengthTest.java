@@ -3,7 +3,7 @@ package tests;
 import org.junit.jupiter.api.Test;
 import lib.Assertions;
 
-public class StringNameLongTest {
+public class StringNameLengthTest {
 
     @Test
     public void stringNameLongTest() {
