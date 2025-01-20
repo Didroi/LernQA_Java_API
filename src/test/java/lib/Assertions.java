@@ -14,4 +14,13 @@ public class Assertions {
         assertEquals(expectedValue, value, "Json value is not equal to expected value");
     }
 
+    public static void assertNameByLength(String name) {
+        int length = 15;
+        assert (name.length() > length) : "Длинна меньше 15 символов";
+    }
+
+    public static void assertNameByLength(String name, int length) {
+        assert (name.length() > length) : "Длинна меньше 15 символов";
+    }
+
 }
