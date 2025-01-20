@@ -50,4 +50,5 @@ public class Ex8TokensHomeWorkTest {
         String result = response.get("result");
         assert result.equals("42"): "Результат некорректен";
     }
+
 }
