@@ -2,6 +2,8 @@ package lib;
 
 import io.restassured.response.Response;
 
+import java.util.Map;
+
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThan;
@@ -27,6 +29,10 @@ public class Assertions {
         assertThat("Длинна меньше 15 символов", name.length(), greaterThan(length));
     }
 
-    public static void assertHWCookie()
+    public static void assertCookieHasCorrectData(Map<String, String> cookie, String key, String value) {
+        assertTrue(cookie.containsKey(key), "Cookie doesn't have key " + key);
+        assertEquals(value, cookie.get(key), "Cookies value doesn't " + value);
+
+    }
 
 }
