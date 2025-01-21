@@ -38,7 +38,7 @@ public class Assertions {
 
     public static void assertHeaderHasSecretData(Headers headers, String key, String value) {
         assertTrue(headers.hasHeaderWithName(key), "Response doesn't have header with name " + key);
-        assertEquals(value, headers.getValue(key), "Headers(" + value + ") doesn't have correct name");
+        assertEquals(value, headers.getValue(key), "Headers(" + key + ") doesn't have correct value: " + value);
 
     }
 
