@@ -27,4 +27,6 @@ public class Assertions {
         assertThat("Длинна меньше 15 символов", name.length(), greaterThan(length));
     }
 
+    public static void assertHWCookie()
+
 }

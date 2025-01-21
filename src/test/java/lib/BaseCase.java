@@ -24,6 +24,10 @@ public class BaseCase {
         return cookies.get(name);
     }
 
+    protected Map<String, String> getCookies(Response response) {
+        return response.getCookies();
+    }
+
     protected int getIntFromJson(Response Response, String name) {
         Response.then().assertThat().body("$", hasKey(name));
         return Response.jsonPath().getInt(name);
