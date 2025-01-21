@@ -1,5 +1,6 @@
 package lib;
 
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 
 import java.util.Map;
@@ -32,6 +33,12 @@ public class Assertions {
     public static void assertCookieHasCorrectData(Map<String, String> cookie, String key, String value) {
         assertTrue(cookie.containsKey(key), "Cookie doesn't have key " + key);
         assertEquals(value, cookie.get(key), "Cookies value doesn't " + value);
+
+    }
+
+    public static void assertHeaderHasSecretData(Headers headers, String key, String value) {
+        assertTrue(headers.hasHeaderWithName(key), "Response doesn't have header with name " + key);
+        assertEquals(value, headers.getValue(key), "Headers(" + value + ") doesn't have correct name");
 
     }
 

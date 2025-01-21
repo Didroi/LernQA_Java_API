@@ -17,6 +17,11 @@ public class BaseCase {
         return headers.getValue(name);
     }
 
+    protected Headers getHeader(Response response) {
+        return response.getHeaders();
+//        return null;
+    }
+
     protected String getCookie(Response Response, String name) {
         Map<String, String> cookies = Response.getCookies();
 
