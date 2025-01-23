@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import lib.Assertions;
 import lib.BaseCase;
+import lib.ParseUserAgentSource;
 import lib.UserAgent;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,19 +39,25 @@ public class TestHWUserAgent extends BaseCase {
         header.put("user-agent", requestJson.getUserAgent());
         String url = "https://playground.learnqa.ru/ajax/api/user_agent_check";
 
-        Response response = RestAssured
+        UserAgent response = RestAssured
                 .given()
                 .headers(header)
                 .get(url)
-                .andReturn();
+                .as(UserAgent.class);
 
 
         String secretHeaderKey = "x-secret-homework-header";
         String secretHeaderValue = "Some secret value";
 
 //        Assertions.assertHeaderHasSecretData(this.getHeader(response), secretHeaderKey, secretHeaderValue);
-        response.prettyPrint();
-        System.out.println(response.getBody().asString());
+//        response.prettyPrint();
+//        System.out.println(response);
 
+    }
+
+    @Test
+    public void printAnswer() {
+        ParseUserAgentSource ob = new ParseUserAgentSource();
+        ob.getSource();
     }
 }

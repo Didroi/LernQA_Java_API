@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserAgent {
 //    @JsonProperty("user-agent")
 //    private String userAgent;
-private String user_agent;
+    private String user_agent;
     private String platform;
     private String browser;
     private String device;
