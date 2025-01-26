@@ -12,10 +12,18 @@ public class UserAgent {
 
 
     public UserAgent(String user_agent, String platform, String browser, String device) {
-        setUserAgent(user_agent);
-        setPlatform(platform);
-        setBrowser(browser);
-        setDevice(device);
+        this.user_agent = user_agent;
+        this.platform = platform;
+        this.browser = browser;
+        this.device = device;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "{\"user_agent\":\"%s\",\"platform\":\"%s\",\"browser\":\"%s\",\"device\":\"%s\"}",
+                user_agent, platform, browser, device
+        );
     }
 
     public String getUserAgent() {
