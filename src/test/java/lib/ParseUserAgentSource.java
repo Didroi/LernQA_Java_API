@@ -26,6 +26,24 @@ public class ParseUserAgentSource {
 
         List<UserAgent> userAgents = new ArrayList<>();
 
+        Pattern pattern = Pattern.compile(
+                "User Agent:\\s*'([^']*)'\\s*" +
+                        "Expected values:\\s*'platform':\\s*'([^']*)'," +
+                        "\\s*'browser':\\s*'([^']*)'," +
+                        "\\s*'device':\\s*'([^']*)'"
+        );
+        Matcher matcher = pattern.matcher(this.getSource());
+
+        while (matcher.find()) {
+            String userAgent = matcher.group(1);
+            String platform = matcher.group(2);
+            String browser = matcher.group(3);
+            String device = matcher.group(4);
+
+            userAgents.add(new UserAgent(userAgent, platform, browser, device));
+        }
+
+//        userAgents.forEach(System.out::println);
         return userAgents;
     }
 }

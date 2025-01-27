@@ -58,7 +58,7 @@ public class TestHWUserAgent extends BaseCase {
     @Test
     public void printAnswer() {
         ParseUserAgentSource ob = new ParseUserAgentSource();
-        System.out.println(ob.getSource());;
+        System.out.println(ob.parsToRightJson());;
 //        System.out.println(ob.getSimpleJason());
     }
 }
