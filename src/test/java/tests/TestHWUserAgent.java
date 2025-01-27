@@ -2,16 +2,27 @@ package tests;
 
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import java.io.IOException;
+
 import lib.Assertions;
 import lib.BaseCase;
 import lib.ParseUserAgentSource;
 import lib.UserAgent;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.stream.Stream;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class TestHWUserAgent extends BaseCase {
 
@@ -60,5 +71,34 @@ public class TestHWUserAgent extends BaseCase {
         ParseUserAgentSource ob = new ParseUserAgentSource();
         System.out.println(ob.parsToRightJson());;
 //        System.out.println(ob.getSimpleJason());
+    }
+
+    static List<UserAgent> provideUserAgents() {
+        ParseUserAgentSource parser = new ParseUserAgentSource();
+        return parser.parsToRightJson();
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideUserAgents") // Указываем источник данных
+    public void testUserAgentFieldsAreValid(UserAgent userAgent) {
+
+        System.out.println(userAgent.getUserAgent());
+        System.out.println(userAgent.getBrowser());
+        System.out.println(userAgent.getPlatform());
+        // Проверяем, что поле user_agent не пустое и не null
+        assertNotNull(userAgent.getUserAgent(), "user_agent должно быть заполнено");
+        assertFalse(userAgent.getUserAgent().isEmpty(), "user_agent не должно быть пустым");
+
+        // Проверяем, что поле platform не пустое и не null
+        assertNotNull(userAgent.getPlatform(), "platform должно быть заполнено");
+        assertFalse(userAgent.getPlatform().isEmpty(), "platform не должно быть пустым");
+
+        // Проверяем, что поле browser не пустое и не null
+        assertNotNull(userAgent.getBrowser(), "browser должно быть заполнено");
+        assertFalse(userAgent.getBrowser().isEmpty(), "browser не должно быть пустым");
+
+        // Проверяем, что поле device не пустое и не null
+        assertNotNull(userAgent.getDevice(), "device должно быть заполнено");
+        assertFalse(userAgent.getDevice().isEmpty(), "device не должно быть пустым");
     }
 }
