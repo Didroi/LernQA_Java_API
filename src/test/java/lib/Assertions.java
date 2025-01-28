@@ -49,4 +49,20 @@ public class Assertions {
         assertEquals(expected.getDevice(), actual.getDevice(), "device не совпадает");
     }
 
+    public static void assertResponseTextEquals(Response Response, String expectedAnswer) {
+        assertEquals(
+                expectedAnswer,
+                Response.asString(),
+                "Response text is not correct"
+        );
+    }
+
+    public static void assertResponseCodeEquals(Response Response, int expectedStatusCode) {
+        assertEquals(
+                expectedStatusCode,
+                Response.statusCode(),
+                "Response status is not correct"
+        );
+    }
+
 }
