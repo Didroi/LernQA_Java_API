@@ -42,4 +42,11 @@ public class Assertions {
 
     }
 
+    public static void assertUserAgentMatches(UserAgent expected, UserAgent actual) {
+        assertEquals(expected.getUser_agent(), actual.getUser_agent(), "user_agent не совпадает");
+        assertEquals(expected.getPlatform(), actual.getPlatform(), "platform не совпадает");
+        assertEquals(expected.getBrowser(), actual.getBrowser(), "browser не совпадает");
+        assertEquals(expected.getDevice(), actual.getDevice(), "device не совпадает");
+    }
+
 }

@@ -16,7 +16,6 @@ public class ParseUserAgentSource {
                 .get("https://gist.githubusercontent.com/KotovVitaliy/138894aa5b6fa442163561b5db6e2e26/raw/6916020a6a9cf1fbf0ee34c7233ade94d766cc96/some.txt")
                 .andReturn();
 
-//        response.prettyPrint();
         String fileContent = response.getBody().asString();
 
         return fileContent;
@@ -43,7 +42,6 @@ public class ParseUserAgentSource {
             userAgents.add(new UserAgent(userAgent, platform, browser, device));
         }
 
-//        userAgents.forEach(System.out::println);
         return userAgents;
     }
 }

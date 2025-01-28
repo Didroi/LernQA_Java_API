@@ -1,15 +1,13 @@
 package lib;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserAgent {
-//    @JsonProperty("user-agent")
-//    private String userAgent;
     private String user_agent;
     private String platform;
     private String browser;
     private String device;
 
+    public UserAgent() {}
 
     public UserAgent(String user_agent, String platform, String browser, String device) {
         this.user_agent = user_agent;
@@ -26,11 +24,11 @@ public class UserAgent {
         );
     }
 
-    public String getUserAgent() {
+    public String getUser_agent() {
         return user_agent;
     }
 
-    public void setUserAgent(String user_agent) {
+    public void setUser_agent(String user_agent) {
         this.user_agent = user_agent;
     }
 
