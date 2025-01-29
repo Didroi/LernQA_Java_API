@@ -5,10 +5,9 @@ import io.restassured.response.Response;
 
 import java.util.Map;
 
-import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
 
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -63,6 +62,26 @@ public class Assertions {
                 Response.statusCode(),
                 "Response status is not correct"
         );
+    }
+
+    public static void assertJasonHasField(Response Response, String expectedFieldName) {
+        Response.then().assertThat().body("$", hasKey(expectedFieldName));
+    }
+
+    public static void assertJasonHasFields(Response Response, String[] expectedFieldNames) {
+        for (String expectedFieldName : expectedFieldNames) {
+            Assertions.assertJasonHasField(Response, expectedFieldName);
+        };
+    }
+
+    public static void assetJsonHasNotField(Response Response, String unexpectedFieldName) {
+        Response.then().assertThat().body("$", not(hasKey(unexpectedFieldName)));
+    }
+
+    public static void assertJasonHasNotFields(Response Response, String[] unexpectedFieldNames) {
+        for (String expectedFieldName : unexpectedFieldNames) {
+            Assertions.assetJsonHasNotField(Response, expectedFieldName);
+        }
     }
 
 }

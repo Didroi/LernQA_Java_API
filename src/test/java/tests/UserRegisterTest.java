@@ -31,9 +31,10 @@ public class UserRegisterTest extends BaseCase {
                 .post("https://playground.learnqa.ru/api/user/")
                 .andReturn();
 
-//        Assertions.assertResponseCodeEquals(responseCreateAuth, 400);
+        Assertions.assertResponseCodeEquals(responseCreateAuth, 200);
 //        Assertions.assertResponseTextEquals(responseCreateAuth, "Users with email '" + email + "' already exists");
-        System.out.println(responseCreateAuth.asString());
+//        System.out.println(responseCreateAuth.asString());
+        Assertions.assertJasonHasField(responseCreateAuth, "id");
     }
 
     @Test
