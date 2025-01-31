@@ -19,6 +19,13 @@ public class Assertions {
         assertEquals(expectedValue, value, "Json value is not equal to expected value");
     }
 
+    public static void assertJsonByName(Response Response, String name, String expectedValue) {
+        Response.then().assertThat().body("$", hasKey(name));
+
+        String value = Response.jsonPath().getString(name);
+        assertEquals(expectedValue, value, "Json value is not equal to expected value");
+    }
+
     public static void assertNameByLength(String name) {
         int length = 15;
 //        assert (name.length() > length) : "Длинна меньше 15 символов";
@@ -83,5 +90,6 @@ public class Assertions {
             Assertions.assetJsonHasNotField(Response, expectedFieldName);
         }
     }
+
 
 }

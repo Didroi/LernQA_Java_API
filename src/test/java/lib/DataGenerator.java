@@ -17,7 +17,7 @@ public class DataGenerator {
         data.put("password", "1234");
         data.put("username", "lernqa");
         data.put("firstName", "lernqa");
-        data.put("LastName", "lernqa");
+        data.put("lastName", "lernqa");
 
         return data;
     }
@@ -34,5 +34,7 @@ public class DataGenerator {
                 userData.put(key, defaultValues.get(key));
             }
         }
+
+        return userData;
     }
 }

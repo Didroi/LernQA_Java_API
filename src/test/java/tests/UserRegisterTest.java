@@ -18,6 +18,44 @@ public class UserRegisterTest extends BaseCase {
         String email = DataGenerator.getRandomEmail();
         System.out.println(email);
 
+        Map<String, String> userData = DataGenerator.getRegistrationData();
+
+        Response responseCreateAuth = RestAssured
+                .given()
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+        Assertions.assertResponseCodeEquals(responseCreateAuth, 200);
+        Assertions.assertJasonHasField(responseCreateAuth, "id");
+    }
+
+    @Test
+    public void testCreateUserWithExistingEmail() {
+
+        String email = "vinkotov@example.com";
+
+        Map<String, String> userData = new HashMap<>();
+        userData.put("email", email);
+        userData = DataGenerator.getRegistrationData(userData);
+
+        Response responseCreateAuth = RestAssured
+                .given()
+                .body(userData)
+                .post("https://playground.learnqa.ru/api/user/")
+                .andReturn();
+
+        Assertions.assertResponseCodeEquals(responseCreateAuth, 400);
+        Assertions.assertResponseTextEquals(responseCreateAuth, "Users with email '" + email + "' already exists");
+    }
+
+
+    @Test
+    public void testCreateUserSuccessfullyOldVer() {
+
+        String email = DataGenerator.getRandomEmail();
+        System.out.println(email);
+
         Map<String, String> userData = new HashMap<>();
         userData.put("email", email);
         userData.put("password", "123");
@@ -37,8 +75,9 @@ public class UserRegisterTest extends BaseCase {
         Assertions.assertJasonHasField(responseCreateAuth, "id");
     }
 
+
     @Test
-    public void testCreateUserWithExistingEmail() {
+    public void testCreateUserWithExistingEmailOldVer() {
 
         String email = "vinkotov@example.com";
 
